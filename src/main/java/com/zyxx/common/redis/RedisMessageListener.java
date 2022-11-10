@@ -10,18 +10,18 @@ import org.springframework.stereotype.Component;
  *
  * @Author Lizhou
  **/
-//@Slf4j
-//@Component
-//public class RedisMessageListener implements MessageListener {
-//
-//    /**
-//     * 消息接收
-//     */
-//    @Override
-//    public void onMessage(Message message, byte[] pattern) {
-//        // 接收的topic
-//        log.info("channel:" + new String(pattern));
-//        // 消息的POJO
-//        log.info("message:" + message.toString());
-//    }
-//}
+@Slf4j
+@Component
+public class RedisMessageListener implements MessageListener {
+
+    /**
+     * 消息接收
+     */
+    @Override
+    public void onMessage(Message message, byte[] pattern) {
+        // 接收的topic
+        log.info("channel:" + new String(pattern));
+        // 消息的POJO
+        log.info("message:" + message.toString());
+    }
+}

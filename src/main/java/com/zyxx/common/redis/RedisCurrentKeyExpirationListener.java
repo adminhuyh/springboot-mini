@@ -10,19 +10,19 @@ import org.springframework.stereotype.Component;
  *
  * @Author Lizhou
  */
-//@Slf4j
-//@Component
-//public class RedisCurrentKeyExpirationListener implements MessageListener {
-//
-//    /**
-//     * 针对 redis 数据失效事件，进行数据处理
-//     *
-//     * @param message
-//     * @param pattern
-//     */
-//    @Override
-//    public void onMessage(Message message, byte[] pattern) {
-//        // 拿到key
-//        log.info("监听Redis当前库 key过期，key：{}，channel：{}", message.toString(), new String(pattern));
-//    }
-//}
+@Slf4j
+@Component
+public class RedisCurrentKeyExpirationListener implements MessageListener {
+
+    /**
+     * 针对 redis 数据失效事件，进行数据处理
+     *
+     * @param message
+     * @param pattern
+     */
+    @Override
+    public void onMessage(Message message, byte[] pattern) {
+        // 拿到key
+        log.info("监听Redis当前库 key过期，key：{}，channel：{}", message.toString(), new String(pattern));
+    }
+}
