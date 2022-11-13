@@ -1,0 +1,208 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyxx.xcx.mapper.UserMapper">
+
+    <resultMap id="userMapper" type="com.zyxx.xcx.entity.User">
+        <id property="id" column="id"/>
+        <result property="createdAt" column="createdAt" javaType="java.time.LocalDateTime" />
+        <result property="updatedAt" column="updatedAt" javaType="java.time.LocalDateTime"  />
+        <result property="userNo" column="user_no" javaType="java.lang.String"  />
+        <result property="userName" column="user_name" javaType="java.lang.String"  />
+        <result property="nickName" column="nick_name" javaType="java.lang.String"  />
+        <result property="sex" column="sex" javaType="java.lang.Integer"  />
+        <result property="wxNumber" column="wx_number" javaType="java.lang.String"  />
+
+
+        <result property="phoneNumber" column="phone_number" javaType="java.lang.Long"  />
+        <result property="birthDay" column="birth_day" javaType="java.time.LocalDate"  />
+        <result property="weight" column="weight" javaType="java.lang.String"  />
+        <result property="height" column="height" javaType="java.lang.String"  />
+        <result property="jobName" column="job_name" javaType="java.lang.String"  />
+
+        <result property="income" column="income" javaType="java.lang.String"  />
+        <result property="nativeProvinceName" column="native_province_name" javaType="java.lang.String"  />
+        <result property="nativeCityName" column="native_city_name" javaType="java.lang.String"  />
+        <result property="nativeAreaName" column="native_area_name" javaType="java.lang.String"  />
+        <result property="workProvinceName" column="work_province_name" javaType="java.lang.String"  />
+        <result property="workCityName" column="work_city_name" javaType="java.lang.String"  />
+        <result property="workAreaName" column="work_area_name" javaType="java.lang.String"  />
+        <result property="constellation" column="constellation" javaType="java.lang.String"  />
+        <result property="aboutYou" column="about_you" javaType="java.lang.String"  />
+        <result property="aboutOther" column="about_other" javaType="java.lang.String"  />
+        <result property="lifeImage" column="life_image" javaType="java.lang.String"  />
+
+    </resultMap>
+
+    <insert id="addUser"  parameterType="com.zyxx.xcx.entity.User">
+        INSERT INTO `register_user`
+        (`user_name`,
+         `createdAt`,
+         `updatedAt`,
+         `user_no`,
+         `nick_name` ,
+         `sex` ,
+         `wx_number` ,
+         `phone_number` ,
+         `birth_day`,
+         `weight` ,
+         `height` ,
+         `job_name` ,
+         `income` ,
+         `native_province_name` ,
+         `native_city_name` ,
+         `native_area_name`,
+         `work_province_name` ,
+         `work_city_name` ,
+         `work_area_name` ,
+         `constellation` ,
+         `about_you` ,
+         `about_other` ,
+         `life_image` )
+            VALUE(
+            #{userName},
+            #{createdAt},
+            #{updatedAt},
+            #{userNo},
+            #{nickName},
+            #{sex},
+            #{wxNumber},
+            #{phoneNumber},
+            #{birthDay},
+            #{weight},
+            #{height},
+            #{jobName},
+            #{income},
+            #{nativeProvinceName},
+            #{nativeCityName},
+            #{nativeAreaName},
+            #{workProvinceName},
+            #{workCityName},
+            #{workAreaName},
+            #{constellation},
+            #{aboutYou},
+            #{aboutOther},
+            #{lifeImage})
+    </insert>
+
+    <select id="getUser" resultMap="userMapper" parameterType="java.lang.Long">
+        SELECT *
+        FROM register_user
+        WHERE id = #{userId}
+    </select>
+
+    <select id="getUserList" resultMap="userMapper" parameterType="com.zyxx.xcx.entity.User">
+        SELECT * from
+        FROM register_user
+        WHERE 1 =1
+        <if test='user.userName            != null'> and `user_name` = #{user.userName},</if>
+        <if test='user.nickName != null'> and `nick_name`  = #{user.nickName},</if>
+        <if test='user.sex != null'> and `sex`  = #{user.sex},</if>
+        <if test='user.wxNumber != null'> and `wx_number`  = #{user.wxNumber},</if>
+        <if test='user.phoneNumber != null'> and `phone_number`  = #{user.phoneNumber},</if>
+        <if test='user.birthDay != null'> and `birth_day` = #{user.birthDay},</if>
+        <if test='user.weight != null'> and `weight`  = #{user.weight},</if>
+        <if test='user.height != null'> and `height`  = #{user.height},</if>
+        <if test='user.jobName != null'> and `job_name`  = #{user.jobName},</if>
+        <if test='user.income != null'> and `income`  = #{user.income},</if>
+        <if test='user.nativeProvinceName  != null'> and `native_province_name`  = #{user.nativeProvinceName},</if>
+        <if test='user.nativeCityName != null'> and `native_city_name`  = #{user.nativeCityName},</if>
+        <if test='user.nativeAreaName != null'> and `native_area_name` = #{user.nativeAreaName},</if>
+        <if test='user.workProvinceName != null'> and `work_province_name`  = #{user.workProvinceName},</if>
+        <if test='user.workCityName != null'> and `work_city_name`  = #{user.workCityName},</if>
+        <if test='user.workAreaName != null'> and `work_area_name`  = #{user.workAreaName},</if>
+        <if test='user.constellation != null'> and `constellation`  = #{user.constellation},</if>
+        <if test='user.aboutYou != null'>  and `about_you`  = #{user.aboutYou},</if>
+        <if test='user.aboutOther != null'> and `about_other`  = #{user.aboutOther},</if>
+        <if test='user.lifeImage != null'> and `life_image`  = #{user.lifeImage} </if>
+        order by id;
+    </select>
+
+    <select id="getUserPageList" resultMap="userMapper" >
+        SELECT *
+            FROM register_user
+        WHERE 1 =1
+        <if test='user.userName            != null'> and `user_name` = #{user.userName}</if>
+        <if test='user.nickName != null'> and `nick_name`  = #{user.nickName}</if>
+        <if test='user.sex != null'> and `sex`  = #{user.sex}</if>
+        <if test='user.wxNumber != null'> and `wx_number`  = #{user.wxNumber}</if>
+        <if test='user.phoneNumber != null'> and `phone_number`  = #{user.phoneNumber}</if>
+        <if test='user.birthDay != null'> and `birth_day` = #{user.birthDay}</if>
+        <if test='user.weight != null'> and `weight`  = #{user.weight}</if>
+        <if test='user.height != null'> and `height`  = #{user.height}</if>
+        <if test='user.jobName != null'> and `job_name`  = #{user.jobName}</if>
+        <if test='user.income != null'> and `income`  = #{user.income}</if>
+        <if test='user.nativeProvinceName  != null'> and `native_province_name`  = #{user.nativeProvinceName}</if>
+        <if test='user.nativeCityName != null'> and `native_city_name`  = #{user.nativeCityName}</if>
+        <if test='user.nativeAreaName != null'> and `native_area_name` = #{user.nativeAreaName}</if>
+        <if test='user.workProvinceName != null'> and `work_province_name`  = #{user.workProvinceName}</if>
+        <if test='user.workCityName != null'> and `work_city_name`  = #{user.workCityName}</if>
+        <if test='user.workAreaName != null'> and `work_area_name`  = #{user.workAreaName}</if>
+        <if test='user.constellation != null'> and `constellation`  = #{user.constellation}</if>
+        <if test='user.aboutYou != null'>  and `about_you`  = #{user.aboutYou}</if>
+        <if test='user.aboutOther != null'> and `about_other`  = #{user.aboutOther}</if>
+        <if test='user.lifeImage != null'> and `life_image`  = #{user.lifeImage} </if>
+        order by id
+        limit #{pageNum},#{pageSize}
+    </select>
+
+    <select id="countUserPageList" resultType="java.lang.Integer" parameterType="com.zyxx.xcx.entity.User">
+        SELECT count(id)
+        FROM register_user
+        WHERE 1 = 1
+        <if test='user.userName            != null'> and `user_name` = #{user.userName}</if>
+        <if test='user.nickName != null'> and `nick_name`  = #{user.nickName}</if>
+        <if test='user.sex != null'> and `sex`  = #{user.sex}</if>
+        <if test='user.wxNumber != null'> and `wx_number`  = #{user.wxNumber}</if>
+        <if test='user.phoneNumber != null'> and `phone_number`  = #{user.phoneNumber}</if>
+        <if test='user.birthDay != null'> and `birth_day` = #{user.birthDay}</if>
+        <if test='user.weight != null'> and `weight`  = #{user.weight}</if>
+        <if test='user.height != null'> and `height`  = #{user.height}</if>
+        <if test='user.jobName != null'> and `job_name`  = #{user.jobName}</if>
+        <if test='user.income != null'> and `income`  = #{user.income}</if>
+        <if test='user.nativeProvinceName  != null'> and `native_province_name`  = #{user.nativeProvinceName}</if>
+        <if test='user.nativeCityName != null'> and `native_city_name`  = #{user.nativeCityName}</if>
+        <if test='user.nativeAreaName != null'> and `native_area_name` = #{user.nativeAreaName}</if>
+        <if test='user.workProvinceName != null'> and `work_province_name`  = #{user.workProvinceName}</if>
+        <if test='user.workCityName != null'> and `work_city_name`  = #{user.workCityName}</if>
+        <if test='user.workAreaName != null'> and `work_area_name`  = #{user.workAreaName}</if>
+        <if test='user.constellation != null'> and `constellation`  = #{user.constellation}</if>
+        <if test='user.aboutYou != null'>  and `about_you`  = #{user.aboutYou}</if>
+        <if test='user.aboutOther != null'> and `about_other`  = #{user.aboutOther}</if>
+        <if test='user.lifeImage != null'> and `life_image`  = #{user.lifeImage} </if>
+    </select>
+
+    <delete id="deleteUser" parameterType="java.lang.Long">
+        DELETE
+        FROM register_user
+        where id = #{id}
+        limit 1
+    </delete>
+
+    <update id="updateUser" parameterType="com.zyxx.xcx.entity.User">
+        UPDATE  `register_user`
+        <set>
+        <if test='userName            != null'> `user_name` = #{userName},</if>
+        <if test='nickName != null'> `nick_name`  = #{nickName},</if>
+        <if test='sex != null'> `sex`  = #{sex},</if>
+        <if test='wxNumber != null'> `wx_number`  = #{wxNumber},</if>
+        <if test='phoneNumber != null'> `phone_number`  = #{phoneNumber},</if>
+        <if test='birthDay != null'> `birth_day` = #{birthDay},</if>
+        <if test='weight != null'> `weight`  = #{weight},</if>
+        <if test='height != null'> `height`  = #{height},</if>
+        <if test='jobName != null'> `job_name`  = #{jobName},</if>
+        <if test='income != null'> `income`  = #{income},</if>
+        <if test='nativeProvinceName  != null'> `native_province_name`  = #{nativeProvinceName},</if>
+        <if test='nativeCityName != null'> `native_city_name`  = #{nativeCityName},</if>
+        <if test='nativeAreaName != null'> `native_area_name` = #{nativeAreaName},</if>
+        <if test='workProvinceName != null'> `work_province_name`  = #{workProvinceName},</if>
+        <if test='workCityName != null'> `work_city_name`  = #{workCityName},</if>
+        <if test='workAreaName != null'> `work_area_name`  = #{workAreaName},</if>
+        <if test='constellation != null'> `constellation`  = #{constellation},</if>
+        <if test='aboutYou != null'> `about_you`  = #{aboutYou},</if>
+        <if test='aboutOther != null'> `about_other`  = #{aboutOther},</if>
+        <if test='lifeImage != null'> `life_image`  = #{lifeImage} </if>
+        </set>
+        where id = #{id}
+    </update>
+
+</mapper>
