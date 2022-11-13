@@ -30,8 +30,8 @@ public class CareUser extends Model<CareUser> {
     private Long userNo;
 
     @ApiModelProperty(value = "系统名称(全称)")
-    @TableField("care_user_number")
-    private Long careUserNumber;
+    @TableField("care_user_no")
+    private Long careUserNo;
 
     @ApiModelProperty(value = "系统logo")
     @TableField("createdAt")

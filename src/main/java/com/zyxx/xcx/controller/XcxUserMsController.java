@@ -46,8 +46,6 @@ public class XcxUserMsController {
         return "xcx/user/list";
     }
 
-
-
     @GetMapping("add")
     public String add(Model model) {
         return "xcx/user/add";
