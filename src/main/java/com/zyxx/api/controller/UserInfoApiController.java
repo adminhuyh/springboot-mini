@@ -18,7 +18,7 @@ import org.springframework.web.bind.annotation.RestController;
  * @Author Lizhou
  * @Date 2020-09-25 10:28:28
  **/
-@Api(tags = "用户相关")
+@Api(tags = "用户注册相关")
 @RestController
 @RequestMapping("api/userInfo")
 public class UserInfoApiController {

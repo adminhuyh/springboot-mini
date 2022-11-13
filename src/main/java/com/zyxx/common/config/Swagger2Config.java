@@ -26,6 +26,8 @@ public class Swagger2Config {
                 .select()
                 // 扫描包位置
                 .apis(RequestHandlerSelectors.basePackage("com.zyxx.api"))
+                .apis(RequestHandlerSelectors.basePackage("com.zyxx.business"))
+                .apis(RequestHandlerSelectors.basePackage("com.zyxx.xcx"))
                 .paths(PathSelectors.any())
                 .build();
     }
@@ -33,13 +35,13 @@ public class Swagger2Config {
     private ApiInfo apiInfo() {
         return new ApiInfoBuilder()
                 // 标题
-                .title("SpringBoot 后台服务API接口文档")
+                .title("综合管理系统 后台服务API接口文档")
                 // 简介
-                .description("使用 knife4j 搭建的后台服务API接口文档")
+                .description("综合管理系统 后台服务API接口文档")
                 // 更新服务条款url
                 .termsOfServiceUrl("http://localhost:8080/")
                 // 作者
-                .contact("lizhou")
+                .contact("hotdog")
                 // 版本
                 .version("1.0.0")
                 // 构建
