@@ -1,17 +1,25 @@
 package com.zyxx.xcx.service.impl;
 
+import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.collect.Lists;
 import com.zyxx.common.config.Page;
+import com.zyxx.common.utils.LayTableResult;
 import com.zyxx.common.utils.NumberUtil;
+import com.zyxx.sys.entity.SysDict;
 import com.zyxx.xcx.dto.UserDto;
+import com.zyxx.xcx.entity.CareUser;
 import com.zyxx.xcx.entity.User;
+import com.zyxx.xcx.mapper.CareUserMapper;
 import com.zyxx.xcx.mapper.UserMapper;
 import com.zyxx.xcx.service.XcxUserService;
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.BeanUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.time.ZoneId;
+import java.util.Date;
 import java.util.List;
 import java.util.Objects;
 
@@ -21,8 +29,13 @@ public class XcxServiceImpl implements XcxUserService {
 
     final UserMapper userMapper;
 
-    public XcxServiceImpl(@Autowired UserMapper userMapper) {
+    final CareUserMapper careUserMapper;
+
+
+
+    public XcxServiceImpl(@Autowired UserMapper userMapper, @Autowired CareUserMapper careUserMapper) {
         this.userMapper = userMapper;
+        this.careUserMapper = careUserMapper;
     }
 
 
@@ -42,6 +55,16 @@ public class XcxServiceImpl implements XcxUserService {
     @Override
     public boolean deleteUser(Long id) {
         Integer integer = userMapper.deleteUser(id);
+        if(integer.equals(1)){
+            return true;
+        }
+        return false;
+    }
+
+
+    @Override
+    public boolean softDeleteUser(Long id) {
+        Integer integer = userMapper.softDeleteUser(id);
         if(integer.equals(1)){
             return true;
         }
@@ -74,6 +97,8 @@ public class XcxServiceImpl implements XcxUserService {
         userDto.setLifeImageList(covertImageToImagelist(user.getLifeImage()));
         if (!CollectionUtils.isEmpty(userDto.getLifeImageList())) {
             userDto.setLifeImage(userDto.getLifeImageList().get(0));
+            userDto.setCreatedAt(Date.from(user.getCreatedAt().atZone( ZoneId.systemDefault()).toInstant()));
+            userDto.setUpdatedAt(Date.from(user.getUpdatedAt().atZone( ZoneId.systemDefault()).toInstant()));
         }
         return userDto;
     }
@@ -96,8 +121,18 @@ public class XcxServiceImpl implements XcxUserService {
         }
         User user = new User();
         BeanUtils.copyProperties(userDto,user);
-        Integer totalPageNum  = userMapper.countUserPageList(pageNum, pageSize, user);
-        List<User> userPageList = userMapper.getUserPageList(pageNum, pageSize, user);
+        Integer totalPageNum  = userMapper.countUserPageList(topicVoPage.getStartNum(), pageSize, user);
+        List<User> userPageList = userMapper.getUserPageList(topicVoPage.getStartNum(), pageSize, user);
+        topicVoPage.setItemTotal(totalPageNum);
+        topicVoPage.setList(covertUserList(userPageList));
+        return topicVoPage;
+    }
+
+    @Override
+    public Page<UserDto> pageCareUserList(Integer pageNum, Integer pageSize, Long userNo) {
+        Page<UserDto> topicVoPage = new Page<>(pageNum, pageSize);
+        Integer totalPageNum  = careUserMapper.countCareUserPageList(pageNum, pageSize, userNo);
+        List<User> userPageList = careUserMapper.getCareUserPageList(pageNum, pageSize, userNo);
         topicVoPage.setItemTotal(totalPageNum);
         topicVoPage.setList(covertUserList(userPageList));
         return topicVoPage;

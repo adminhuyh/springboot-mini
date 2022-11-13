@@ -14,6 +14,8 @@ public interface UserMapper {
 
     public Integer deleteUser(Long userId);
 
+    public Integer softDeleteUser(Long userId);
+
 
     public Integer updateUser(User user);
 

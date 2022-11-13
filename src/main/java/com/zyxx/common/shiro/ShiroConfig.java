@@ -56,6 +56,7 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/kaptcha/**", "anon");
         // 开放App接口
         filterChainDefinitionMap.put("/api/**", "anon");
+        filterChainDefinitionMap.put("/xcx/**", "anon");
         // 开放接口文档
         filterChainDefinitionMap.put("/doc.html", "anon");
         filterChainDefinitionMap.put("/service-worker.js", "anon");
@@ -70,7 +71,8 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/layuimini/**", "anon");
         filterChainDefinitionMap.put("/module/**", "anon");
         // 其余url全部拦截，必须放在最后
-        filterChainDefinitionMap.put("/**", "authc");
+        //filterChainDefinitionMap.put("/**", "authc");
+        filterChainDefinitionMap.put("/**", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }

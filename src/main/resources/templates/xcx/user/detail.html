@@ -1,0 +1,159 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" xmlns:shiro="http://www.pollix.at/thymeleaf/shiro">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+    <title>注册用户详情</title>
+    <link rel="icon" th:href="@{/img/icon.ico}">
+    <link rel="stylesheet" th:href="@{/layui/css/layui.css}" media="all">
+    <link rel="stylesheet" th:href="@{/layuimini/css/public.css}" media="all">
+    <style>
+        .layui-form-item .layui-input-company {
+            width: auto;padding-right: 10px;line-height: 38px;
+        }
+    </style>
+</head>
+<body>
+<div class="layuimini-container">
+    <div class="layuimini-main">
+
+        <form class="layui-form" action="" lay-filter="formDemo">
+            <div class="layui-form layuimini-form">
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">用户名称</label>
+                    <div class="layui-input-block">
+                        <input type="hidden" name="id" th:value="${data.id}">
+                        <input type="text" name="userName" th:value="${data.userName}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">用户编号</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="userNo" th:value="${data.userNo}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">用户性别</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="sex" th:value="${data.sex}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">微信号码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="wxNumber" th:value="${data.wxNumber}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">手机号码</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="phoneNumber" th:value="${data.phoneNumber}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">出生日期</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="birthDay" th:value="${data.birthDay}"   lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">体重</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="weight" th:value="${data.weight}"  lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">身高</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="height" th:value="${data.height}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">职业</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="jobName" th:value="${data.jobName}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">收入</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="income" th:value="${data.income}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">籍贯</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="nativeAddress" th:value="${data.nativeProvinceName+data.nativeCityName+data.nativeAreaName}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">工作地址</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="workAddress" th:value="${data.workProvinceName+data.workCityName+data.workAreaName}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">星座</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="constellation" th:value="${data.constellation}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">关于你</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="aboutYou" th:value="${data.aboutYou}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">关于你的那个</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="aboutOther" th:value="${data.aboutOther}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
+
+
+
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">身活照</label>
+                    <div class="layui-input-block">
+                        <div style="height: 100px;width: 100px;position: relative;">
+                            <span th:if="${data.lifeImageList != null && data.lifeImageList.size()>0}">
+                                <img  th:src="${data.lifeImageList.get(0)}" alt=""  style="height: 100%;width: 100%;position: absolute;left: 0;top: 0;border: 1px solid #1E9FFF;"/>
+                            </span>
+                        </div>
+                        <div style="height: 100px;width: 100px;position: relative;">
+                             <span th:if="${data.lifeImageList != null && data.lifeImageList.size()>1}">
+                                <img  th:src="${data.lifeImageList.get(1)}" alt=""  style="height: 100%;width: 100%;position: absolute;left: 0;top: 0;border: 1px solid #1E9FFF;"/>
+                            </span>
+                        </div>
+                        <div style="height: 100px;width: 100px;position: relative;">
+                              <span th:if="${data.lifeImageList != null  && data.lifeImageList.size()>2}">
+                                <img  th:src="${data.lifeImageList.get(2)}" alt=""  style="height: 100%;width: 100%;position: absolute;left: 0;top: 0;border: 1px solid #1E9FFF;">
+                             </span>
+                        </div>
+                    </div>
+                </div>
+
+
+            </div>
+        </form>
+    </div>
+</div>
+<script type="text/javascript" th:src="@{/layui/layui.js}"></script>
+
+
+</body>
+</html>

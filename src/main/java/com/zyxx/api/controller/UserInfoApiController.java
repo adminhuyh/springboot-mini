@@ -23,4 +23,9 @@ import org.springframework.web.bind.annotation.RestController;
 @RequestMapping("api/userInfo")
 public class UserInfoApiController {
 
+    @RequestMapping("/test")
+    public String test(){
+        return "test success";
+    }
+
 }

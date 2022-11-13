@@ -4,9 +4,9 @@ import java.time.LocalDate;
 
 public class NumberUtil {
 
-    public static String getNumber(){
+    public static Long getNumber(){
         String replace = LocalDate.now().toString().replace("-", "");
-        return replace+ Double.valueOf(Math.random() * 9000 + 1000).intValue();
+        return Long.valueOf(replace+ Double.valueOf(Math.random() * 9000 + 1000).intValue());
     }
 
     public static void main(String[] args) {

@@ -12,7 +12,7 @@ public class UserVo implements Serializable {
 
     private Long id;
 
-    private String userNo;
+    private Long userNo;
 
     private  String userName;
 

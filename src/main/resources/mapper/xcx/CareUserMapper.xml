@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd" >
+<mapper namespace="com.zyxx.xcx.mapper.CareUserMapper">
+
+    <resultMap id="userMapper" type="com.zyxx.xcx.entity.User">
+        <id property="id" column="id"/>
+        <result property="createdAt" column="createdAt" javaType="java.time.LocalDateTime" />
+        <result property="updatedAt" column="updatedAt" javaType="java.time.LocalDateTime"  />
+        <result property="userNo" column="user_no" javaType="java.lang.String"  />
+        <result property="userName" column="user_name" javaType="java.lang.String"  />
+        <result property="nickName" column="nick_name" javaType="java.lang.String"  />
+        <result property="sex" column="sex" javaType="java.lang.Integer"  />
+        <result property="wxNumber" column="wx_number" javaType="java.lang.String"  />
+
+
+        <result property="phoneNumber" column="phone_number" javaType="java.lang.Long"  />
+        <result property="birthDay" column="birth_day" javaType="java.time.LocalDate"  />
+        <result property="weight" column="weight" javaType="java.lang.String"  />
+        <result property="height" column="height" javaType="java.lang.String"  />
+        <result property="jobName" column="job_name" javaType="java.lang.String"  />
+
+        <result property="income" column="income" javaType="java.lang.String"  />
+        <result property="nativeProvinceName" column="native_province_name" javaType="java.lang.String"  />
+        <result property="nativeCityName" column="native_city_name" javaType="java.lang.String"  />
+        <result property="nativeAreaName" column="native_area_name" javaType="java.lang.String"  />
+        <result property="workProvinceName" column="work_province_name" javaType="java.lang.String"  />
+        <result property="workCityName" column="work_city_name" javaType="java.lang.String"  />
+        <result property="workAreaName" column="work_area_name" javaType="java.lang.String"  />
+        <result property="constellation" column="constellation" javaType="java.lang.String"  />
+        <result property="aboutYou" column="about_you" javaType="java.lang.String"  />
+        <result property="aboutOther" column="about_other" javaType="java.lang.String"  />
+        <result property="lifeImage" column="life_image" javaType="java.lang.String"  />
+
+    </resultMap>
+
+
+    <select id="getCareUserPageList" resultMap="userMapper" >
+        SELECT
+        b.*
+        FROM
+        care_user a
+        JOIN register_user b ON a.user_no = b.user_no
+        WHERE
+        a.user_no  = #{userNo}
+        order by a.id asc
+        limit #{pageNum},#{pageSize}
+    </select>
+
+    <select id="countCareUserPageList" resultType="java.lang.Integer" parameterType="com.zyxx.xcx.entity.User">
+        SELECT count(a.id)
+        FROM
+            care_user a
+                JOIN register_user b ON a.user_no = b.user_no
+        WHERE
+            a.user_no  = #{userNo}
+        order by a.id asc
+            limit #{pageNum},#{pageSize}
+    </select>
+
+</mapper>

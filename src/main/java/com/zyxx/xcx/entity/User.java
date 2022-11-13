@@ -15,7 +15,7 @@ public class User implements Serializable {
 
     private LocalDateTime updatedAt;
 
-    private String userNo;
+    private Long userNo;
 
 
     private  String userName;

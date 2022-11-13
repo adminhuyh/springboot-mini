@@ -6,7 +6,7 @@
         <id property="id" column="id"/>
         <result property="createdAt" column="createdAt" javaType="java.time.LocalDateTime" />
         <result property="updatedAt" column="updatedAt" javaType="java.time.LocalDateTime"  />
-        <result property="userNo" column="user_no" javaType="java.lang.String"  />
+        <result property="userNo" column="user_no" javaType="java.lang.Long"  />
         <result property="userName" column="user_name" javaType="java.lang.String"  />
         <result property="nickName" column="nick_name" javaType="java.lang.String"  />
         <result property="sex" column="sex" javaType="java.lang.Integer"  />
@@ -36,8 +36,6 @@
     <insert id="addUser"  parameterType="com.zyxx.xcx.entity.User">
         INSERT INTO `register_user`
         (`user_name`,
-         `createdAt`,
-         `updatedAt`,
          `user_no`,
          `nick_name` ,
          `sex` ,
@@ -60,8 +58,6 @@
          `life_image` )
             VALUE(
             #{userName},
-            #{createdAt},
-            #{updatedAt},
             #{userNo},
             #{nickName},
             #{sex},
@@ -114,14 +110,14 @@
         <if test='user.aboutYou != null'>  and `about_you`  = #{user.aboutYou},</if>
         <if test='user.aboutOther != null'> and `about_other`  = #{user.aboutOther},</if>
         <if test='user.lifeImage != null'> and `life_image`  = #{user.lifeImage} </if>
-        order by id;
+        order by create_id;
     </select>
 
     <select id="getUserPageList" resultMap="userMapper" >
         SELECT *
             FROM register_user
-        WHERE 1 =1
-        <if test='user.userName            != null'> and `user_name` = #{user.userName}</if>
+        WHERE del_flag = 0
+        <if test='user.userName != null and  user.userName  != "" '> and `user_name` like  concat('%',#{user.userName,jdbcType=VARCHAR},'%')</if>
         <if test='user.nickName != null'> and `nick_name`  = #{user.nickName}</if>
         <if test='user.sex != null'> and `sex`  = #{user.sex}</if>
         <if test='user.wxNumber != null'> and `wx_number`  = #{user.wxNumber}</if>
@@ -141,15 +137,15 @@
         <if test='user.aboutYou != null'>  and `about_you`  = #{user.aboutYou}</if>
         <if test='user.aboutOther != null'> and `about_other`  = #{user.aboutOther}</if>
         <if test='user.lifeImage != null'> and `life_image`  = #{user.lifeImage} </if>
-        order by id
+        order by createdAt desc,id
         limit #{pageNum},#{pageSize}
     </select>
 
     <select id="countUserPageList" resultType="java.lang.Integer" parameterType="com.zyxx.xcx.entity.User">
         SELECT count(id)
         FROM register_user
-        WHERE 1 = 1
-        <if test='user.userName            != null'> and `user_name` = #{user.userName}</if>
+        WHERE del_flag = 0
+        <if test='user.userName != null and  user.userName  != ""'> and `user_name` like  concat('%',#{user.userName,jdbcType=VARCHAR},'%')</if>
         <if test='user.nickName != null'> and `nick_name`  = #{user.nickName}</if>
         <if test='user.sex != null'> and `sex`  = #{user.sex}</if>
         <if test='user.wxNumber != null'> and `wx_number`  = #{user.wxNumber}</if>
@@ -178,29 +174,36 @@
         limit 1
     </delete>
 
+    <update id="softDeleteUser" parameterType="java.lang.Long">
+        UPDATE register_user
+        SET del_flag = 1
+        where id = #{id}
+            limit 1
+    </update>
+
     <update id="updateUser" parameterType="com.zyxx.xcx.entity.User">
         UPDATE  `register_user`
         <set>
-        <if test='userName            != null'> `user_name` = #{userName},</if>
-        <if test='nickName != null'> `nick_name`  = #{nickName},</if>
+        <if test='userName != null and  userName  != "" '> `user_name` = #{userName},</if>
+        <if test='nickName != null and  nickName  != "" '> `nick_name`  = #{nickName},</if>
         <if test='sex != null'> `sex`  = #{sex},</if>
-        <if test='wxNumber != null'> `wx_number`  = #{wxNumber},</if>
+        <if test='wxNumber != null and  wxNumber  != "" '> `wx_number`  = #{wxNumber},</if>
         <if test='phoneNumber != null'> `phone_number`  = #{phoneNumber},</if>
         <if test='birthDay != null'> `birth_day` = #{birthDay},</if>
-        <if test='weight != null'> `weight`  = #{weight},</if>
-        <if test='height != null'> `height`  = #{height},</if>
-        <if test='jobName != null'> `job_name`  = #{jobName},</if>
-        <if test='income != null'> `income`  = #{income},</if>
-        <if test='nativeProvinceName  != null'> `native_province_name`  = #{nativeProvinceName},</if>
-        <if test='nativeCityName != null'> `native_city_name`  = #{nativeCityName},</if>
-        <if test='nativeAreaName != null'> `native_area_name` = #{nativeAreaName},</if>
-        <if test='workProvinceName != null'> `work_province_name`  = #{workProvinceName},</if>
-        <if test='workCityName != null'> `work_city_name`  = #{workCityName},</if>
-        <if test='workAreaName != null'> `work_area_name`  = #{workAreaName},</if>
-        <if test='constellation != null'> `constellation`  = #{constellation},</if>
-        <if test='aboutYou != null'> `about_you`  = #{aboutYou},</if>
-        <if test='aboutOther != null'> `about_other`  = #{aboutOther},</if>
-        <if test='lifeImage != null'> `life_image`  = #{lifeImage} </if>
+        <if test='weight != null and  weight  != "" '> `weight`  = #{weight},</if>
+        <if test='height != null and  height  != "" '> `height`  = #{height},</if>
+        <if test='jobName != null and  jobName  != "" '> `job_name`  = #{jobName},</if>
+        <if test='income != null and  income  != "" '> `income`  = #{income},</if>
+        <if test='nativeProvinceName  != null and  nativeProvinceName  != "" '> `native_province_name`  = #{nativeProvinceName},</if>
+        <if test='nativeCityName != null and  nativeCityName  != "" '> `native_city_name`  = #{nativeCityName},</if>
+        <if test='nativeAreaName != null and  nativeAreaName  != "" '> `native_area_name` = #{nativeAreaName},</if>
+        <if test='workProvinceName != null and  workProvinceName  != "" '> `work_province_name`  = #{workProvinceName},</if>
+        <if test='workCityName != null and  workCityName  != "" '> `work_city_name`  = #{workCityName},</if>
+        <if test='workAreaName != null and  workAreaName  != "" '> `work_area_name`  = #{workAreaName},</if>
+        <if test='constellation != null and  constellation  != "" '> `constellation`  = #{constellation},</if>
+        <if test='aboutYou != null and  aboutYou  != "" '> `about_you`  = #{aboutYou},</if>
+        <if test='aboutOther != null and  aboutOther  != "" '> `about_other`  = #{aboutOther},</if>
+        <if test='lifeImage != null and  lifeImage  != "" '> `life_image`  = #{lifeImage} </if>
         </set>
         where id = #{id}
     </update>

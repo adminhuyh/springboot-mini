@@ -1,5 +1,6 @@
 package com.zyxx.common.config;
 
+import com.google.common.base.Predicates;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import springfox.documentation.builders.ApiInfoBuilder;
@@ -25,9 +26,9 @@ public class Swagger2Config {
                 .apiInfo(apiInfo())
                 .select()
                 // 扫描包位置
-                .apis(RequestHandlerSelectors.basePackage("com.zyxx.api"))
-                .apis(RequestHandlerSelectors.basePackage("com.zyxx.business"))
-                .apis(RequestHandlerSelectors.basePackage("com.zyxx.xcx"))
+//                .apis(RequestHandlerSelectors.basePackage("com.zyxx.sys"))
+//                .apis(RequestHandlerSelectors.basePackage("com.zyxx.api"))
+                .apis(Predicates.or(RequestHandlerSelectors.basePackage("com.zyxx.sys"),RequestHandlerSelectors.basePackage("com.zyxx.xcx")))
                 .paths(PathSelectors.any())
                 .build();
     }

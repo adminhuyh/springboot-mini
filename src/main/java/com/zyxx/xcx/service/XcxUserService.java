@@ -12,6 +12,8 @@ public interface XcxUserService {
 
     public boolean deleteUser(Long userId);
 
+    public boolean softDeleteUser(Long id);
+
     public boolean updateUser(UserDto userDto);
 
     UserDto getUser(Long userId);
@@ -19,5 +21,7 @@ public interface XcxUserService {
     List<UserDto> getUserList(UserDto userDto);
 
     Page<UserDto> pageUserList(Integer pageNum, Integer pageSize, UserDto userDto);
+
+    Page<UserDto> pageCareUserList(Integer pageNum, Integer pageSize, Long userNo);
 
 }
