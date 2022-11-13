@@ -1,0 +1,69 @@
+# 项目端口
+server:
+  port: 8080
+  servlet:
+    # 项目路径
+    context-path:
+
+
+
+spring:
+  # Mysql配置
+  datasource:
+    driver-class-name: com.mysql.cj.jdbc.Driver
+    url: jdbc:mysql://10.29.110.164:3306/springboot-demon?useUnicode=true&useJDBCCompliantTimezoneShift=true&useLegacyDatetimeCode=false&serverTimezone=Asia/Shanghai&useSSL=true&characterEncoding=UTF-8
+    # springboot2.0整合了hikari ,据说这是目前性能最好的java数据库连接池
+    hikari:
+      username: root
+      password: root
+      idle-timeout: 60000
+      maximum-pool-size: 30
+      minimum-idle: 10
+      max-lifetime: 30000
+      connection-test-query: SELECT 1
+
+  # 热部署
+  devtools:
+    restart:
+      enabled: true
+  # 模板引擎
+  thymeleaf:
+    # 开发模式为false，正式发布为true
+    cache: false
+  # 上传文件
+  servlet:
+    multipart:
+      max-file-size: 10MB
+      max-request-size: 10MB
+  cache:
+    type: ehcache
+    ehcache:
+      config: classpath:/ehcache.xml
+
+# mybatis配置
+mybatis-plus:
+  # xml文件路径
+  mapper-locations: classpath:mapper/*/*.xml
+  # 实体类路径
+  type-aliases-package: com.zyxx.*.entity
+  configuration:
+    # 驼峰转换
+    map-underscore-to-camel-case: true
+    # 是否开启缓存
+    cache-enabled: false
+    # 打印sql
+    log-impl: org.apache.ibatis.logging.stdout.StdOutImpl
+  # 全局配置
+  global-config:
+    # 数据库字段驼峰下划线转换
+    db-column-underline: true
+    # id自增类型(数据库id自增)
+    id-type: 0
+
+# Minio文件存储配置信息
+minio:
+  endpoint: http://127.0.0.1:9000
+  accesskey: minioadmin
+  secretKey: minioadmin
+
+
