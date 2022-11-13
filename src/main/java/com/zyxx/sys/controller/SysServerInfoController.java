@@ -2,7 +2,7 @@ package com.zyxx.sys.controller;
 
 import com.alibaba.fastjson.JSONObject;
 import com.zyxx.common.redis.RedisConst;
-import com.zyxx.common.redis.RedisUtil;
+import com.zyxx.common.redis.RedisVirtually;
 import com.zyxx.common.utils.DateUtils;
 import com.zyxx.common.utils.ResponseResult;
 import com.zyxx.sys.entity.ServerInfo;
@@ -27,7 +27,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SysServerInfoController {
 
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisVirtually redisVirtually;
+
 
     @GetMapping("init")
     public String init() {
@@ -37,7 +38,7 @@ public class SysServerInfoController {
     @GetMapping("list")
     @ResponseBody
     public ResponseResult list() {
-        Object object = redisUtil.get(RedisConst.Key.SYS_SERVER_INFO);
+        Object object = redisVirtually.get(RedisConst.Key.SYS_SERVER_INFO);
         if (null != object) {
             return ResponseResult.success(JSONObject.parseObject(String.valueOf(object)));
         }
@@ -48,7 +49,7 @@ public class SysServerInfoController {
             JSONObject jsonObject = new JSONObject();
             jsonObject.put("data", serverInfo);
             jsonObject.put("updateTime", DateUtils.getYmdHmsZh());
-            redisUtil.set(RedisConst.Key.SYS_SERVER_INFO, jsonObject.toJSONString(), 120);
+            redisVirtually.set(RedisConst.Key.SYS_SERVER_INFO, jsonObject.toJSONString(), 120);
             return ResponseResult.success(jsonObject);
         } catch (Exception e) {
             e.printStackTrace();

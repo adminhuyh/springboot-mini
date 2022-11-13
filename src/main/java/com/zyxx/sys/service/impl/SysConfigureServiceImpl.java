@@ -3,7 +3,7 @@ package com.zyxx.sys.service.impl;
 import com.alibaba.fastjson.JSONObject;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zyxx.common.redis.RedisConst;
-import com.zyxx.common.redis.RedisUtil;
+import com.zyxx.common.redis.RedisVirtually;
 import com.zyxx.common.shiro.SingletonLoginUtils;
 import com.zyxx.common.utils.ResponseResult;
 import com.zyxx.sys.entity.SysConfigure;
@@ -24,11 +24,12 @@ import org.springframework.stereotype.Service;
 public class SysConfigureServiceImpl extends ServiceImpl<SysConfigureMapper, SysConfigure> implements SysConfigureService {
 
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisVirtually redisVirtually;
 
     @Override
     public SysConfigure saveSysConfigure() {
-        Object object = redisUtil.get(RedisConst.Key.SYS_CONFIGURE);
+        Object object = redisVirtually.get(RedisConst.Key.SYS_CONFIGURE);
+        System.out.println("object"+object);
         if (null != object) {
             return (SysConfigure) object;
         }
@@ -39,7 +40,7 @@ public class SysConfigureServiceImpl extends ServiceImpl<SysConfigureMapper, Sys
             this.save(sysConfigure);
         }
         // 存入redis
-        redisUtil.set(RedisConst.Key.SYS_CONFIGURE, sysConfigure);
+        redisVirtually.set(RedisConst.Key.SYS_CONFIGURE, sysConfigure);
         return sysConfigure;
     }
 
@@ -51,7 +52,7 @@ public class SysConfigureServiceImpl extends ServiceImpl<SysConfigureMapper, Sys
         sysConfigure.setUpdateUser(SingletonLoginUtils.getSysUserId());
         this.updateById(sysConfigure);
         // 存入redis
-        redisUtil.set(RedisConst.Key.SYS_CONFIGURE, JSONObject.toJSONString(sysConfigure));
+        redisVirtually.set(RedisConst.Key.SYS_CONFIGURE, JSONObject.toJSONString(sysConfigure));
         return ResponseResult.success();
     }
 }

@@ -10,7 +10,6 @@ import com.zyxx.common.utils.ResponseResult;
 import com.zyxx.common.utils.ServletUtils;
 import com.zyxx.sys.entity.SysUserInfo;
 import com.zyxx.sys.service.SysConfigureService;
-import com.zyxx.sys.service.SysLoginLogService;
 import com.zyxx.sys.service.SysPermissionInfoService;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiImplicitParam;
@@ -45,8 +44,6 @@ public class SysLoginController {
 
     @Autowired
     private SysPermissionInfoService sysPermissionInfoService;
-    @Autowired
-    private SysLoginLogService sysLoginLogService;
     @Autowired
     private SysConfigureService sysConfigureService;
 
@@ -97,23 +94,17 @@ public class SysLoginController {
             // 将用户保存到session中
             SysUserInfo userInfo = SingletonLoginUtils.getSysUserInfo();
             request.getSession().setAttribute(SystemConst.SYSTEM_USER_SESSION, userInfo);
-            // 保存登录日志
-            sysLoginLogService.save(account, 0, "用户登录成功");
+
             return ResponseResult.success("登录成功，欢迎回来！");
         } catch (UnknownAccountException e) {
-            sysLoginLogService.save(account, 1, "登录账户不存在");
             return ResponseResult.error("账户不存在");
         } catch (DisabledAccountException e) {
-            sysLoginLogService.save(account, 1, "登录账户已被冻结");
             return ResponseResult.error("账户已被冻结");
         } catch (IncorrectCredentialsException e) {
-            sysLoginLogService.save(account, 1, "登录密码不正确");
             return ResponseResult.error("密码不正确");
         } catch (ExcessiveAttemptsException e) {
-            sysLoginLogService.save(account, 1, "密码连续输入错误超过5次，锁定半小时");
             return ResponseResult.error("密码连续输入错误超过5次，锁定半小时");
         } catch (RuntimeException e) {
-            sysLoginLogService.save(account, 1, "未知错误");
             return ResponseResult.error("未知错误");
         }
     }

@@ -5,7 +5,7 @@ import com.baomidou.mybatisplus.core.conditions.query.QueryWrapper;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zyxx.common.consts.CacheConst;
 import com.zyxx.common.redis.RedisConst;
-import com.zyxx.common.redis.RedisUtil;
+import com.zyxx.common.redis.RedisVirtually;
 import com.zyxx.common.shiro.SingletonLoginUtils;
 import com.zyxx.common.utils.LayTableResult;
 import com.zyxx.common.utils.ResponseResult;
@@ -33,7 +33,7 @@ public class SysDictDetailServiceImpl extends ServiceImpl<SysDictDetailMapper, S
     @Autowired
     private SysDictDetailMapper sysDictDetailMapper;
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisVirtually redisVirtually;
 
     @Override
     public LayTableResult list(String dictCode) {
@@ -56,7 +56,7 @@ public class SysDictDetailServiceImpl extends ServiceImpl<SysDictDetailMapper, S
         sysDictDetail.setCreateUser(SingletonLoginUtils.getSysUserId());
         this.save(sysDictDetail);
         // 存入redis
-        redisUtil.set(RedisConst.Key.SYS_DICT + sysDictDetail.getDictCode() + ":" + sysDictDetail.getCode(), sysDictDetail.getName());
+        redisVirtually.set(RedisConst.Key.SYS_DICT + sysDictDetail.getDictCode() + ":" + sysDictDetail.getCode(), sysDictDetail.getName());
         return ResponseResult.success();
     }
 
@@ -73,7 +73,7 @@ public class SysDictDetailServiceImpl extends ServiceImpl<SysDictDetailMapper, S
         sysDictDetail.setUpdateUser(SingletonLoginUtils.getSysUserId());
         this.updateById(sysDictDetail);
         // 存入redis
-        redisUtil.set(RedisConst.Key.SYS_DICT + sysDictDetail.getDictCode() + ":" + sysDictDetail.getCode(), sysDictDetail.getName());
+        redisVirtually.set(RedisConst.Key.SYS_DICT + sysDictDetail.getDictCode() + ":" + sysDictDetail.getCode(), sysDictDetail.getName());
         return ResponseResult.success();
     }
 
@@ -82,7 +82,7 @@ public class SysDictDetailServiceImpl extends ServiceImpl<SysDictDetailMapper, S
         SysDictDetail sysDictDetail = sysDictDetailMapper.selectById(id);
         this.removeById(id);
         // 删除redis
-        redisUtil.del(RedisConst.Key.SYS_DICT + sysDictDetail.getDictCode() + ":" + sysDictDetail.getCode());
+        redisVirtually.del(RedisConst.Key.SYS_DICT + sysDictDetail.getDictCode() + ":" + sysDictDetail.getCode());
         return ResponseResult.success();
     }
 
@@ -90,7 +90,7 @@ public class SysDictDetailServiceImpl extends ServiceImpl<SysDictDetailMapper, S
     @Cacheable(value = CacheConst.SYS_DICT_CACHE, key = "#dictCode+':'+#code")
     public String getDictDataByTypeAndValue(String dictCode, String code) {
         // 先从 Redis里面获取
-        Object object = redisUtil.get(RedisConst.Key.SYS_DICT + dictCode + ":" + code);
+        Object object = redisVirtually.get(RedisConst.Key.SYS_DICT + dictCode + ":" + code);
         if (null != object) {
             return String.valueOf(object);
         }
@@ -98,7 +98,7 @@ public class SysDictDetailServiceImpl extends ServiceImpl<SysDictDetailMapper, S
         String dictText = sysDictDetailMapper.getSysDictDetail(dictCode, code);
         // 存入 Redis
         if (StringUtils.isNotBlank(dictText)) {
-            redisUtil.set(RedisConst.Key.SYS_DICT + dictCode + ":" + code, dictText);
+            redisVirtually.set(RedisConst.Key.SYS_DICT + dictCode + ":" + code, dictText);
         }
         return dictText;
     }

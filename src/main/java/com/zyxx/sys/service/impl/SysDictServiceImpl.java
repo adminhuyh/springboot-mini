@@ -4,7 +4,7 @@ import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.baomidou.mybatisplus.extension.plugins.pagination.Page;
 import com.baomidou.mybatisplus.extension.service.impl.ServiceImpl;
 import com.zyxx.common.redis.RedisConst;
-import com.zyxx.common.redis.RedisUtil;
+import com.zyxx.common.redis.RedisVirtually;
 import com.zyxx.common.shiro.SingletonLoginUtils;
 import com.zyxx.common.utils.LayTableResult;
 import com.zyxx.common.utils.ResponseResult;
@@ -30,7 +30,7 @@ import java.util.Set;
 public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> implements SysDictService {
 
     @Autowired
-    private RedisUtil redisUtil;
+    private RedisVirtually redisVirtually;
 
     @Override
     public LayTableResult list(Integer page, Integer limit, SysDict sysDict) {
@@ -78,8 +78,8 @@ public class SysDictServiceImpl extends ServiceImpl<SysDictMapper, SysDict> impl
     public ResponseResult delete(Integer id) {
         SysDict sysDict = this.getById(id);
         this.removeById(id);
-        Set<String> keys = redisUtil.getKeys(RedisConst.Key.SYS_DICT + sysDict.getCode() + "*");
-        redisUtil.delBatch(keys);
+        Set<String> keys = redisVirtually.getKeys(RedisConst.Key.SYS_DICT + sysDict.getCode() + "*");
+        redisVirtually.delBatch(keys);
         return ResponseResult.success();
     }
 
