@@ -15,7 +15,7 @@ spring:
     # springboot2.0整合了hikari ,据说这是目前性能最好的java数据库连接池
     hikari:
       username: root
-      password: root
+      password: 890qweASD
       idle-timeout: 60000
       maximum-pool-size: 30
       minimum-idle: 10
