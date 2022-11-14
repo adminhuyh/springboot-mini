@@ -233,6 +233,17 @@
             <version>4.5.2</version>
         </dependency>
         <!-- 获取系统信息 end -->
+
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-api</artifactId>
+            <version>1.7.21</version>
+        </dependency>
+        <dependency>
+            <groupId>org.slf4j</groupId>
+            <artifactId>slf4j-log4j12</artifactId>
+            <version>1.7.21</version>
+        </dependency>
     </dependencies>
 
     <build>
@@ -242,13 +253,7 @@
                 <artifactId>spring-boot-maven-plugin</artifactId>
                 <configuration>
                     <mainClass>com.zyxx.SpringBootMiniApplication</mainClass>
-                    <layout>ZIP</layout>
-                    <includes>
-                        <include>
-                            <groupId>nothing</groupId>
-                            <artifactId>nothing</artifactId>
-                        </include>
-                    </includes>
+                    <layout>JAR</layout>
                 </configuration>
                 <executions>
                     <execution>
