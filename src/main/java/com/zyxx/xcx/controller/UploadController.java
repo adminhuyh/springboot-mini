@@ -4,6 +4,7 @@ package com.zyxx.xcx.controller;
 import com.zyxx.common.utils.RestResultData;
 import io.swagger.annotations.Api;
 import io.swagger.annotations.ApiOperation;
+import org.springframework.util.ResourceUtils;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
@@ -11,6 +12,7 @@ import org.springframework.web.bind.annotation.RestController;
 import org.springframework.web.multipart.MultipartFile;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.IOException;
 
 @Api(tags = "jj小程序上传服务接口")
@@ -19,10 +21,17 @@ import java.io.IOException;
 public class UploadController {
 
 
-    private static final String imagePath = "static//images/";
+    private static final String imagePath = "images/user/";
 
-    private static final String serverName = "D:/common-project/common-project/freemaker/springboot-mini/src/main/resources/";
+    private static  String serverName;
 
+    static{
+        try {
+            serverName =  ResourceUtils.getURL("src/main/resources").getPath().replaceFirst("/", "");
+        } catch (FileNotFoundException e) {
+            e.printStackTrace();
+        }
+    }
 
     @ApiOperation(value = "jj小程序上传图片接口" ,notes = "jj小程序上传图片接口")
     @PostMapping("/uploadImage")
@@ -30,6 +39,7 @@ public class UploadController {
         if (image.getSize() > 1024 * 1024 * 5) {
             return RestResultData.failed("附件大小不能大于5M");
         }
+        System.out.println("");
         //下面判断，图片的格式需要是jpg,jpeg,gif,png格式
         String pictureSuffix = image.getOriginalFilename().substring(image.getOriginalFilename().lastIndexOf(".") + 1);
         if (!"jpg,jpeg,gif,png".toUpperCase().contains(pictureSuffix.toUpperCase())) {
@@ -48,4 +58,11 @@ public class UploadController {
         return RestResultData.successed(savePath);
     }
 
+    public static void main(String[] args) throws FileNotFoundException {
+        String path = ResourceUtils.getURL("src/main/resources").getPath();
+        String s = path.replaceFirst("/", "");
+        System.out.println(s.equals(serverName));
+        System.out.println("path="+s);
+
+    }
 }

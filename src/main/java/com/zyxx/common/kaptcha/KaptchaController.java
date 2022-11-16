@@ -29,41 +29,41 @@ public class KaptchaController {
 
     @Autowired
     private Producer producer;
-
-    @ApiOperation(value = "获取验证码", notes = "获取验证码")
-    @GetMapping("kaptcha-image")
-    public void getKaptchaImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
-        response.setDateHeader("Expires", 0);
-
-        // Set standard HTTP/1.1 no-cache headers.
-        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
-
-        // Set IE extended HTTP/1.1 no-cache headers (use addHeader).
-        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
-
-        // Set standard HTTP/1.0 no-cache header.
-        response.setHeader("Pragma", "no-cache");
-
-        // return a jpeg
-        response.setContentType("image/jpeg");
-
-        // create the text for the image
-        String capText = producer.createText();
-        log.info("******************当前验证码为：{}******************", capText);
-
-        // store the text in the session
-        request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
-
-        // create the image with the text
-        BufferedImage bi = producer.createImage(capText);
-        ServletOutputStream out = response.getOutputStream();
-
-        // write the data out
-        ImageIO.write(bi, "jpg", out);
-        try {
-            out.flush();
-        } finally {
-            out.close();
-        }
-    }
+//
+//    @ApiOperation(value = "获取验证码", notes = "获取验证码")
+//    @GetMapping("kaptcha-image")
+//    public void getKaptchaImage(HttpServletRequest request, HttpServletResponse response) throws Exception {
+//        response.setDateHeader("Expires", 0);
+//
+//        // Set standard HTTP/1.1 no-cache headers.
+//        response.setHeader("Cache-Control", "no-store, no-cache, must-revalidate");
+//
+//        // Set IE extended HTTP/1.1 no-cache headers (use addHeader).
+//        response.addHeader("Cache-Control", "post-check=0, pre-check=0");
+//
+//        // Set standard HTTP/1.0 no-cache header.
+//        response.setHeader("Pragma", "no-cache");
+//
+//        // return a jpeg
+//        response.setContentType("image/jpeg");
+//
+//        // create the text for the image
+//        String capText = producer.createText();
+//        log.info("******************当前验证码为：{}******************", capText);
+//
+//        // store the text in the session
+//        request.getSession().setAttribute(Constants.KAPTCHA_SESSION_KEY, capText);
+//
+//        // create the image with the text
+//        BufferedImage bi = producer.createImage(capText);
+//        ServletOutputStream out = response.getOutputStream();
+//
+//        // write the data out
+//        ImageIO.write(bi, "jpg", out);
+//        try {
+//            out.flush();
+//        } finally {
+//            out.close();
+//        }
+//    }
 }

@@ -48,12 +48,12 @@
                                 <input type="password" autocomplete="off" placeholder="密码" class="el-input__inner" id="j_password">
                             </div>
                         </div>
-                        <div class="dx_form_input">
-                            <div class="el-input">
-                                <input type="text" autocomplete="off" placeholder="验证码" class="el-input__inner" id="j_code" style="width: 65%">
-                                <img th:src="@{/kaptcha/kaptcha-image}" id="ver_btn" onclick="this.src=this.src+'?c='+Math.random();" style="cursor: pointer; height: 100%; width: 35%; position: absolute;" alt="看不清? 点击刷新" title="看不清? 点击刷新" />
-                            </div>
-                        </div>
+<!--                        <div class="dx_form_input">-->
+<!--                            <div class="el-input">-->
+<!--                                <input type="text" autocomplete="off" placeholder="验证码" class="el-input__inner" id="j_code" style="width: 65%">-->
+<!--                                <img th:src="@{/kaptcha/kaptcha-image}" id="ver_btn" onclick="this.src=this.src+'?c='+Math.random();" style="cursor: pointer; height: 100%; width: 35%; position: absolute;" alt="看不清? 点击刷新" title="看不清? 点击刷新" />-->
+<!--                            </div>-->
+<!--                        </div>-->
                         <div class="dx_form_input">
                             <div class="el-input">
                                 <input type="checkbox" id="j_remember" style="width: 14px;height: 14px;cursor: pointer;vertical-align: middle;">
@@ -140,12 +140,12 @@
                 document.getElementById("j_password").focus();
                 return false;
             }
-            var j_code = document.getElementById('j_code').value;
-            if(!j_code) {
-                notice.warning('请输入验证码');
-                document.getElementById("j_code").focus();
-                return false;
-            }
+            // var j_code = document.getElementById('j_code').value;
+            // if(!j_code) {
+            //     // notice.warning('请输入验证码');
+            //     // document.getElementById("j_code").focus();
+            //     // return false;
+            // }
             var j_remember = document.getElementById('j_remember').checked;
             logining();
             $.ajax({
@@ -155,7 +155,7 @@
                 data: {
                     "account": j_username,
                     "password": j_password,
-                    "resCode": j_code,
+                    //"resCode": j_code,
                     "rememberMe": j_remember
                 },
                 success: function(res) {

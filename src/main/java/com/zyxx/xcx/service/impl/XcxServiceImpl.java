@@ -100,6 +100,15 @@ public class XcxServiceImpl implements XcxUserService {
             userDto.setCreatedAt(Date.from(user.getCreatedAt().atZone( ZoneId.systemDefault()).toInstant()));
             userDto.setUpdatedAt(Date.from(user.getUpdatedAt().atZone( ZoneId.systemDefault()).toInstant()));
         }
+        userDto.setWorkAddressName(getWorkAddressName(user));
+        userDto.setNativeAddressName(getNativeAddressName(user));
+        if(!Objects.isNull(user.getSex())){
+            if(user.getSex()==1){
+                userDto.setSexDesc("男");
+            }else if (user.getSex()==2){
+                userDto.setSexDesc("女");
+            }
+        }
         return userDto;
     }
 
@@ -160,12 +169,40 @@ public class XcxServiceImpl implements XcxUserService {
             return Lists.newArrayList(split);
 
     }
-    public static String covertImageListToString(List<String> imageList){
+    public  String covertImageListToString(List<String> imageList){
         if(CollectionUtils.isEmpty(imageList)){
             return "";
         }
         StringBuilder image = new StringBuilder();
         imageList.stream().forEach(k -> image.append(k).append(","));
         return image.substring(0,image.length()-1);
+    }
+    private String getNativeAddressName(User user){
+
+        StringBuffer sb = new StringBuffer();
+        if(StringUtils.isNoneBlank(user.getNativeProvinceName())){
+            sb.append(user.getNativeProvinceName()).append(",");
+        }
+        if (StringUtils.isNoneBlank(user.getNativeCityName())){
+            sb.append(user.getNativeCityName()).append(",");
+        }
+        if (StringUtils.isNoneBlank(user.getNativeAreaName())){
+            sb.append(user.getNativeAreaName());
+        }
+        return sb.toString();
+    }
+    private String getWorkAddressName(User user){
+
+        StringBuffer sb = new StringBuffer();
+        if(StringUtils.isNoneBlank(user.getWorkProvinceName())){
+            sb.append(user.getWorkProvinceName()).append(",");
+        }
+        if (StringUtils.isNoneBlank(user.getWorkCityName())){
+            sb.append(user.getWorkCityName()).append(",");
+        }
+        if (StringUtils.isNoneBlank(user.getWorkAreaName())){
+            sb.append(user.getWorkAreaName());
+        }
+        return sb.toString();
     }
 }

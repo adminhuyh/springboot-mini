@@ -79,10 +79,10 @@ public class SysLoginController {
     @PostMapping("doLogin")
     @ResponseBody
     public ResponseResult doLogin(String account, String password, String resCode, Boolean rememberMe, HttpServletRequest request) throws Exception {
-        // 验证码
-        if (!KaptchaUtil.validate(resCode, request)) {
-            return ResponseResult.error(StatusEnums.KAPTCH_ERROR);
-        }
+//        // 验证码
+//        if (!KaptchaUtil.validate(resCode, request)) {
+//            return ResponseResult.error(StatusEnums.KAPTCH_ERROR);
+//        }
         // 验证帐号和密码
         Subject subject = SecurityUtils.getSubject();
         UsernamePasswordToken token = new UsernamePasswordToken(account, password);

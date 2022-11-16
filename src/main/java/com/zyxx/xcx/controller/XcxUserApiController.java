@@ -63,7 +63,7 @@ public class XcxUserApiController {
     @ResponseBody
     RestResultData addUserInfo(@RequestBody RequsetUserParam userParam) {
         //return RestResultData.successed(true);
-//        System.out.println("userParam="+userParam);
+        System.out.println("userParam="+userParam);
 //        return RestResultData.successed(true);
         if(Objects.isNull(userParam.getPhoneNumber()) || "".equals(userParam.getPhoneNumber())){
             return RestResultData.failed("手机号码不能为空");

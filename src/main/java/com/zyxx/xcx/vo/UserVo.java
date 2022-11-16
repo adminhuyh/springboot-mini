@@ -21,6 +21,8 @@ public class UserVo implements Serializable {
      * 0未知 1男 2女
      */
     private  Integer sex;
+
+    private  String sexDesc;
     /**
      * 微信号
      */
@@ -47,11 +49,16 @@ public class UserVo implements Serializable {
 
     private  String nativeAreaName;
 
+    private  String nativeAddressName;
+
+
     private  String workProvinceName;
 
     private  String workCityName;
 
     private  String workAreaName;
+
+    private  String workAddressName;
 
     /**
      * 星座

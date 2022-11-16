@@ -11,5 +11,6 @@ public class WebMvcConfig implements WebMvcConfigurer {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         //和页面有关的静态目录都放在项目的static目录下
         registry.addResourceHandler("/images/**").addResourceLocations("classpath:/images/");
+        registry.addResourceHandler("/images/user/**").addResourceLocations("classpath:/images/user/");
     }
 }

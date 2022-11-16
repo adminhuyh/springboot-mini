@@ -70,9 +70,11 @@ public class ShiroConfig {
         filterChainDefinitionMap.put("/layui/**", "anon");
         filterChainDefinitionMap.put("/layuimini/**", "anon");
         filterChainDefinitionMap.put("/module/**", "anon");
+        //图片
+        filterChainDefinitionMap.put("/images/user/**", "anon");
         // 其余url全部拦截，必须放在最后
-        //filterChainDefinitionMap.put("/**", "authc");
-        filterChainDefinitionMap.put("/**", "anon");
+        filterChainDefinitionMap.put("/**", "authc");
+        //filterChainDefinitionMap.put("/**", "anon");
         shiroFilterFactoryBean.setFilterChainDefinitionMap(filterChainDefinitionMap);
         return shiroFilterFactoryBean;
     }
