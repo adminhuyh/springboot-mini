@@ -269,6 +269,7 @@
                 <directory>src/main/resources</directory>
                 <includes>
                     <include>**/*.*</include>
+                    <include>*.keystore.p12</include>
                 </includes>
             </resource>
         </resources>
