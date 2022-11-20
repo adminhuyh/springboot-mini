@@ -76,6 +76,8 @@ public class UserVo implements Serializable {
 
     private  String lifeImage;
 
+    private  String fulllifeImage;
+
     private List<String> lifeImageList;
 
     private List<String> fullLifeImageList;

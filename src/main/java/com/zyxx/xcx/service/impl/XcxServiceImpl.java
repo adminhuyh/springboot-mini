@@ -98,11 +98,15 @@ public class XcxServiceImpl implements XcxUserService {
         UserDto userDto = new UserDto();
         BeanUtils.copyProperties(user,userDto);
         userDto.setLifeImageList(covertImageToImagelist(user.getLifeImage()));
-        if (!CollectionUtils.isEmpty(userDto.getLifeImageList())) {
-            userDto.setLifeImage(userDto.getLifeImageList().get(0));
-            userDto.setCreatedAt(DateFormatUtil.parseLocalDateTime(user.getCreatedAt()));
-            userDto.setUpdatedAt(DateFormatUtil.parseLocalDateTime(user.getUpdatedAt()));
-        }
+        userDto.setFullLifeImageList(covertImageToImagelist(user.getFullLifeImage()));
+        userDto.setCreatedAt(DateFormatUtil.parseLocalDateTime(user.getCreatedAt()));
+        userDto.setUpdatedAt(DateFormatUtil.parseLocalDateTime(user.getUpdatedAt()));
+//        if (!CollectionUtils.isEmpty(userDto.getLifeImageList())) {
+//           // userDto.(userDto.getLifeImageList().get(0));
+//        }
+//        if (!CollectionUtils.isEmpty(userDto.getFullLifeImageList())) {
+//           // userDto.setFullLifeImage(userDto.getFullLifeImageList().get(0));
+//        }
         userDto.setWorkAddressName(getWorkAddressName(user));
         userDto.setNativeAddressName(getNativeAddressName(user));
         if(!Objects.isNull(user.getSex())){
@@ -156,6 +160,7 @@ public class XcxServiceImpl implements XcxUserService {
             UserDto userDto = new UserDto();
             BeanUtils.copyProperties(k,userDto);
             userDto.setLifeImageList(covertImageToImagelist(k.getLifeImage()));
+            userDto.setFullLifeImageList(covertImageToImagelist(k.getFullLifeImage()));
             userDto.setCreatedAt(DateFormatUtil.parseLocalDateTime(k.getCreatedAt()));
             userDto.setUpdatedAt(DateFormatUtil.parseLocalDateTime(k.getUpdatedAt()));
             userDtoList.add(userDto);

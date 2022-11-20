@@ -99,7 +99,7 @@
                 {field: 'userNo', title: '用户编号'},
                 {field: 'mainImage', title: '头像', templet: function (d) {
                         if(!!d.mainImage){
-                            return '<img src="../../../'+d.mainImage+'" class="avatar-show">';
+                            return '<img src="'+d.mainImage+'" class="avatar-show" style="height: 64px; width: 64px">';
                         }else {
                             return '';
                         }

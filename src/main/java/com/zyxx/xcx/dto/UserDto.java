@@ -73,6 +73,8 @@ public class UserDto implements Serializable {
 
     private  String lifeImage;
 
+    private  String fullLifeImage;
+
     private String createdAt;
 
     private String updatedAt;

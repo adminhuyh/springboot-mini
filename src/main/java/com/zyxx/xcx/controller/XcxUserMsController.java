@@ -89,7 +89,7 @@ public class XcxUserMsController {
             }
             userVoList.add(userVo);
         });
-        userDtoPage.setList(userVoList);System.out.println("userVoList="+userVoList);
+        userDtoPage.setList(userVoList);
         return new MsRestResultData(userDtoPage.getItemTotal(),userVoList);
 
     }
