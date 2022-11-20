@@ -4,6 +4,7 @@ import lombok.Data;
 
 import java.io.Serializable;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Data
@@ -11,6 +12,8 @@ public class UserVo implements Serializable {
 
 
     private Long id;
+
+    private String createdAt;
 
     private Long userNo;
 
@@ -74,6 +77,8 @@ public class UserVo implements Serializable {
     private  String lifeImage;
 
     private List<String> lifeImageList;
+
+    private List<String> fullLifeImageList;
 
 
 }

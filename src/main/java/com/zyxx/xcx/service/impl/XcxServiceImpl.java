@@ -3,6 +3,7 @@ package com.zyxx.xcx.service.impl;
 import com.baomidou.mybatisplus.core.conditions.query.LambdaQueryWrapper;
 import com.google.common.collect.Lists;
 import com.zyxx.common.config.Page;
+import com.zyxx.common.utils.DateFormatUtil;
 import com.zyxx.common.utils.LayTableResult;
 import com.zyxx.common.utils.NumberUtil;
 import com.zyxx.sys.entity.SysDict;
@@ -44,6 +45,7 @@ public class XcxServiceImpl implements XcxUserService {
         User user = new User();
         BeanUtils.copyProperties(userDto,user);
         user.setLifeImage(covertImageListToString(userDto.getLifeImageList()));
+        user.setFullLifeImage(covertImageListToString(userDto.getFullLifeImageList()));
         user.setUserNo(NumberUtil.getNumber());
         Integer integer = userMapper.addUser(user);
         if(integer.equals(1)){
@@ -79,6 +81,7 @@ public class XcxServiceImpl implements XcxUserService {
         User user = new User();
         BeanUtils.copyProperties(userDto,user);
         user.setLifeImage(covertImageListToString(userDto.getLifeImageList()));
+        user.setFullLifeImage(covertImageListToString(userDto.getFullLifeImageList()));
         Integer integer = userMapper.updateUser(user);
         if(integer.equals(1)){
             return true;
@@ -97,8 +100,8 @@ public class XcxServiceImpl implements XcxUserService {
         userDto.setLifeImageList(covertImageToImagelist(user.getLifeImage()));
         if (!CollectionUtils.isEmpty(userDto.getLifeImageList())) {
             userDto.setLifeImage(userDto.getLifeImageList().get(0));
-            userDto.setCreatedAt(Date.from(user.getCreatedAt().atZone( ZoneId.systemDefault()).toInstant()));
-            userDto.setUpdatedAt(Date.from(user.getUpdatedAt().atZone( ZoneId.systemDefault()).toInstant()));
+            userDto.setCreatedAt(DateFormatUtil.parseLocalDateTime(user.getCreatedAt()));
+            userDto.setUpdatedAt(DateFormatUtil.parseLocalDateTime(user.getUpdatedAt()));
         }
         userDto.setWorkAddressName(getWorkAddressName(user));
         userDto.setNativeAddressName(getNativeAddressName(user));
@@ -153,6 +156,8 @@ public class XcxServiceImpl implements XcxUserService {
             UserDto userDto = new UserDto();
             BeanUtils.copyProperties(k,userDto);
             userDto.setLifeImageList(covertImageToImagelist(k.getLifeImage()));
+            userDto.setCreatedAt(DateFormatUtil.parseLocalDateTime(k.getCreatedAt()));
+            userDto.setUpdatedAt(DateFormatUtil.parseLocalDateTime(k.getUpdatedAt()));
             userDtoList.add(userDto);
         });
         return userDtoList;

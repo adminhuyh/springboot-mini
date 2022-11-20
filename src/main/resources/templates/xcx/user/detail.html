@@ -130,18 +130,18 @@
                     <label class="layui-form-label required">身活照</label>
                     <div class="layui-input-block">
                         <div style="height: 100px;width: 100px;position: relative;">
-                            <span th:if="${data.lifeImageList != null && data.lifeImageList.size()>0}">
-                                <img  th:src="${data.lifeImageList.get(0)}" alt=""  style="height: 100%;width: 100%;position: absolute;left: 0;top: 0;border: 1px solid #1E9FFF;"/>
+                            <span th:if="${data.fullLifeImageList != null && data.fullLifeImageList.size()>0}">
+                                <img  th:src="${data.fullLifeImageList.get(0)}" alt=""  style="height: 100%;width: 100%;position: absolute;left: 0;top: 0;border: 1px solid #1E9FFF;"/>
                             </span>
                         </div>
                         <div style="height: 100px;width: 100px;position: relative;">
-                             <span th:if="${data.lifeImageList != null && data.lifeImageList.size()>1}">
-                                <img  th:src="${data.lifeImageList.get(1)}" alt=""  style="height: 100%;width: 100%;position: absolute;left: 0;top: 0;border: 1px solid #1E9FFF;"/>
+                             <span th:if="${data.fullLifeImageList != null && data.fullLifeImageList.size()>1}">
+                                <img  th:src="${data.fullLifeImageList.get(1)}" alt=""  style="height: 100%;width: 100%;position: absolute;left: 0;top: 0;border: 1px solid #1E9FFF;"/>
                             </span>
                         </div>
                         <div style="height: 100px;width: 100px;position: relative;">
-                              <span th:if="${data.lifeImageList != null  && data.lifeImageList.size()>2}">
-                                <img  th:src="${data.lifeImageList.get(2)}" alt=""  style="height: 100%;width: 100%;position: absolute;left: 0;top: 0;border: 1px solid #1E9FFF;">
+                              <span th:if="${data.fullLifeImageList != null  && data.fullLifeImageList.size()>2}">
+                                <img  th:src="${data.fullLifeImageList.get(2)}" alt=""  style="height: 100%;width: 100%;position: absolute;left: 0;top: 0;border: 1px solid #1E9FFF;">
                              </span>
                         </div>
                     </div>

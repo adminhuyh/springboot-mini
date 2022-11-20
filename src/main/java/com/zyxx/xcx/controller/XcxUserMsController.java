@@ -23,6 +23,8 @@ import org.springframework.ui.Model;
 import org.springframework.util.CollectionUtils;
 import org.springframework.web.bind.annotation.*;
 
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
 import java.util.List;
 import java.util.Objects;
 
@@ -81,12 +83,13 @@ public class XcxUserMsController {
         list.stream().forEach(k -> {
             UserVo userVo = new UserVo();
             BeanUtils.copyProperties(k,userVo);
-            if (!CollectionUtils.isEmpty(userVo.getLifeImageList())) {
-                userVo.setMainImage(userVo.getLifeImageList().get(0));
+            if (!CollectionUtils.isEmpty(userVo.getFullLifeImageList())) {
+                userVo.setMainImage(userVo.getFullLifeImageList().get(0));
+                //userVo.setCreatedAt(k.getCreatedAt().format().toString());
             }
             userVoList.add(userVo);
         });
-        userDtoPage.setList(userVoList);
+        userDtoPage.setList(userVoList);System.out.println("userVoList="+userVoList);
         return new MsRestResultData(userDtoPage.getItemTotal(),userVoList);
 
     }
@@ -131,7 +134,6 @@ public class XcxUserMsController {
             return ResponseResult.error();
         }
     }
-
 
 
 

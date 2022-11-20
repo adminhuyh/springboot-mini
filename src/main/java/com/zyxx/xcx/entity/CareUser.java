@@ -8,8 +8,10 @@ import io.swagger.annotations.ApiModelProperty;
 import lombok.Data;
 import lombok.EqualsAndHashCode;
 import lombok.experimental.Accessors;
+import org.apache.ibatis.type.BlobTypeHandler;
 
 import java.io.Serializable;
+import java.sql.Blob;
 import java.time.LocalDateTime;
 import java.util.Date;
 
@@ -33,11 +35,11 @@ public class CareUser extends Model<CareUser> {
     @TableField("care_user_no")
     private Long careUserNo;
 
-    @ApiModelProperty(value = "系统logo")
+    @ApiModelProperty(value = "创建时间")
     @TableField("createdAt")
     private LocalDateTime createdAt;
 
-    @ApiModelProperty(value = "网站标题")
+    @ApiModelProperty(value = "修改时间")
     @TableField("updatedAt")
     private LocalDateTime updatedAt;
 
