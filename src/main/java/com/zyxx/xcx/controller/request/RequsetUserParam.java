@@ -68,6 +68,7 @@ public class RequsetUserParam implements Serializable {
 
     private List<String> fullLifeImageList;
 
+    private String education;
     public RequsetUserParam(){
         this.nickName="";
     }

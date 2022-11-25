@@ -70,4 +70,6 @@ public class User implements Serializable {
 
     private  String fullLifeImage;
 
+    private  String education;
+
 }

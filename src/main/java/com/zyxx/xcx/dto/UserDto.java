@@ -83,4 +83,6 @@ public class UserDto implements Serializable {
     private List<String> lifeImageList;
 
     private List<String>  fullLifeImageList;
+
+    private String education;
 }

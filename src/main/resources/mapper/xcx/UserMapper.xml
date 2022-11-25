@@ -31,7 +31,7 @@
         <result property="aboutOther" column="about_other" javaType="java.lang.String"  />
         <result property="lifeImage" column="life_image" javaType="java.lang.String"  />
         <result property="fullLifeImage" column="full_life_image" javaType="java.lang.String"  />
-
+        <result property="education" column="education" javaType="java.lang.String"  />
     </resultMap>
 
     <insert id="addUser"  parameterType="com.zyxx.xcx.entity.User">
@@ -57,7 +57,8 @@
          `about_you` ,
          `about_other` ,
          `life_image`,
-         `full_life_image`)
+         `full_life_image`,
+         `education`)
             VALUE(
             #{userName},
             #{userNo},
@@ -80,7 +81,8 @@
             #{aboutYou},
             #{aboutOther},
             #{lifeImage},
-            #{fullLifeImage})
+            #{fullLifeImage},
+            #{education})
     </insert>
 
     <select id="getUser" resultMap="userMapper" parameterType="java.lang.Long">
@@ -114,6 +116,8 @@
         <if test='user.aboutOther != null'> and `about_other`  = #{user.aboutOther},</if>
         <if test='user.lifeImage != null'> and `life_image`  = #{user.lifeImage} </if>
         <if test='user.fullLifeImage != null'> and `full_life_image`  = #{user.fullLifeImage} </if>
+        <if test='user.education != null'> and `education`  = #{education} </if>
+
         order by create_id;
     </select>
 
@@ -142,6 +146,8 @@
         <if test='user.aboutOther != null'> and `about_other`  = #{user.aboutOther}</if>
         <if test='user.lifeImage != null'> and `life_image`  = #{user.lifeImage} </if>
         <if test='user.fullLifeImage != null'> and `full_life_image`  = #{user.fullLifeImage} </if>
+        <if test='user.education != null'> and `education`  = #{user.education} </if>
+
         order by createdAt desc,id
         limit #{pageNum},#{pageSize}
     </select>
@@ -171,6 +177,8 @@
         <if test='user.aboutOther != null'> and `about_other`  = #{user.aboutOther}</if>
         <if test='user.lifeImage != null'> and `life_image`  = #{user.lifeImage} </if>
         <if test='user.fullLifeImage != null'> and `full_life_image`  = #{user.fullLifeImage} </if>
+        <if test='user.education != null'> and `education`  = #{user.education} </if>
+
     </select>
 
     <delete id="deleteUser" parameterType="java.lang.Long">
@@ -211,6 +219,8 @@
         <if test='aboutOther != null and  aboutOther  != "" '> `about_other`  = #{aboutOther},</if>
         <if test='lifeImage != null and  lifeImage  != "" '> `life_image`  = #{lifeImage} </if>
         <if test='fullLifeImage != null and  fullLifeImage  != "" '> `full_life_image`  = #{fullLifeImage} </if>
+        <if test='education != null and  education  != "" '> `education`  = #{education} </if>
+
         </set>
         where id = #{id}
     </update>

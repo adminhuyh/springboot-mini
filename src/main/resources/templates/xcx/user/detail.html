@@ -69,10 +69,16 @@
                 <div class="layui-form-item">
                     <label class="layui-form-label required">身高</label>
                     <div class="layui-input-block">
-                        <input type="text" name="height" th:value="${data.height}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                        <input type="text" name="height" th:value="${data.education}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
                     </div>
                 </div>
 
+                <div class="layui-form-item">
+                    <label class="layui-form-label required">学历</label>
+                    <div class="layui-input-block">
+                        <input type="text" name="education" th:value="${data.education}" lay-verify="required|phone" lay-reqtext="" placeholder="" class="layui-input" disabled>
+                    </div>
+                </div>
 
                 <div class="layui-form-item">
                     <label class="layui-form-label required">职业</label>
